@@ -3,10 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width= , initial-scale=1.0" />
+    <meta name="viewport" content="width= device-width, initial-scale=1.0" />
     <link href="style.css" rel="stylesheet " />
     <script defer src="script.js "></script>
     <title>To Do List</title>
   </head>
-  <body></body>
+  <body>
+    <section>
+      <h1 class="heading-primary">To Do List</h1>
+      <h2 class="heading-secondary">To Do:</h2>
+      <div class="container">
+        <div class="to-do">
+          <!-- <div class="to-do-item">
+            <ul class="item-list">
+              <li>${this.title}</li>
+              <li>${this.description}</li>
+              <li>${this.date}</li>
+              <li>
+                <input
+                  type="button"
+                  id="complete"
+                  class="item-button"
+                  value="complete"
+                />
+              </li>
+            </ul>
+          </div> -->
+
+          <div class="to-do-item">
+            <form class="form">
+              <div class="item-list">
+                <input type="text" placeholder="Title" class="title" />
+
+                <input
+                  type="text"
+                  placeholder="Description"
+                  class="description"
+                />
+                <input type="datetime-local" class="date-time" />
+
+                <input
+                  id="save"
+                  type="button"
+                  class="item-button button-save"
+                  value="Save"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+        <input id="add" class="button-add" type="button" value="Add +" />
+      </div>
+      <h2 class="heading-secondary">Completed:</h2>
+      <div class="container">
+        <div class="completed">
+          <!-- <div class="to-do-item">
+            <ul class="item-list">
+              <li>Lorem, ipsum dolor.</li>
+              <li>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Cupiditate, eius amet. Tempora eius velit labore sapiente quos
+                unde nemo quasi, porro ab dolorem veritatis deleniti debitis
+                autem in voluptas iusto.
+              </li>
+              <li>01/01/1970</li>
+              <li>
+                <input
+                  id="remove"
+                  type="button"
+                  class="item-button"
+                  value="Remove"
+                />
+              </li>
+            </ul>
+          </div> -->
+        </div>
+      </div>
+    </section>
+  </body>
 </html>
