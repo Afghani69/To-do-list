@@ -11,6 +11,11 @@ html {
 section {
   padding: 4.8rem 9.6rem;
 }
+/* GENERAL */
+.hidden {
+  display: none;
+}
+
 .heading-primary {
   text-align: center;
 }

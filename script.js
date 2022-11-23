@@ -1,103 +1,153 @@
 'use strict';
 
 class ToDoList {
-  toDo = document.querySelector('.to-do');
+  todo = document.querySelector('.to-do');
   complete = document.querySelector('.completed');
+  state = {
+    toDo: [],
+    complete: [],
+  };
 
-  insertForm() {
-    const markup = `
-    <div class="to-do-item">
-            <form class="form">
-              <div class="item-list">
-                <input type="text" placeholder="Title" class="title" />
-
-                <input
-                  type="text"
-                  placeholder="Description"
-                  class="description"
-                />
-                <input type="datetime-local" class="date-time" />
-
-                <input
-                  id="save"
-                  type="button"
-                  class="item-button button-save"
-                  value="Save"
-                />
-              </div>
-            </form>
-          </div>
-    `;
-    this.insertMarkup(this.toDo, 'beforeend', markup);
+  addToState(title, description = 'n/a', date = 'n/a') {
+    const data = {
+      title,
+      description,
+      date,
+      id: this.state.toDo.length + this.state.complete.length + 1,
+    };
+    this.state.toDo.push(data);
   }
 
-  createToDo(title, description, date) {
-    this.title = title.value;
-    this.description = description.value;
-    this.date = date.value;
+  removeFromState() {}
 
-    const markup = `
-    <div class="to-do-item">
+  renderState() {
+    // clear render TODO
+    const toDos = Array.from(this.todo.children);
+    toDos.forEach(el => {
+      if (el.id) this.todo.removeChild(el);
+    });
+
+    // clear render COMPLETE
+    const completed = Array.from(this.complete.children);
+    completed.forEach(el => {
+      if (el.id) this.complete.removeChild(el);
+    });
+    // toDo
+    if (this.state.toDo.length > 0) {
+      this.state.toDo.forEach(obj => {
+        const markup = `
+        <div id="${obj.id}" class="to-do-item">
+        <ul class="item-list">
+        <li>${obj.title}</li>
+        <li>${obj.description}</li>
+        <li>${obj.date}</li>
+        <li>
+        <input
+        type="button"
+        id="complete"
+        class="item-button"
+        value="complete"
+        />
+        </li>
+        </ul>
+        </div>
+        `;
+
+        this._insertHTML(this.todo, 'beforeend', markup);
+      });
+    }
+
+    // completed
+
+    this.state.complete.forEach(obj => {
+      const markup = `
+          <div id="${obj.id}" class="to-do-item">
             <ul class="item-list">
-              <li>${this.title}</li>
-              <li>${this.description}</li>
-              <li>${this.date}</li>
+              <li>${obj.title}</li>
+              <li>${obj.description}</li>
+              <li>${obj.date}</li>
               <li>
                 <input
                   type="button"
-                  id="complete"
+                  id="remove"
                   class="item-button"
-                  value="complete"
+                  value="remove"
                 />
               </li>
             </ul>
           </div>
-    `;
-    this.removeForm();
-    this.insertMarkup(this.toDo, 'beforeend', markup);
+      `;
+      this._insertHTML(this.complete, 'afterbegin', markup);
+    });
   }
 
-  completeToDo(event) {
-    const toDoItem = event.target.closest('.to-do-item');
-    this.complete.appendChild(toDoItem);
+  completeToDo(item) {
+    const completedItem = this.state.toDo.find(el => el.id === Number(item.id));
+    this.state.toDo.splice(this.state.toDo.indexOf(completedItem), 1);
+    this.state.complete.push(completedItem);
+    this.renderState();
   }
 
-  insertMarkup(location, position, markup) {
-    location.insertAdjacentHTML(position, markup);
+  renderForm() {
+    const toDoChild = this.todo.children[0].children[0];
+    const formEl = [...toDoChild.children[0].children];
+    formEl.forEach(el => {
+      if (el.id !== 'save') el.value = '';
+    });
+    if (
+      toDoChild.classList.contains('form') &&
+      toDoChild.closest('.to-do-item').classList.contains('hidden')
+    ) {
+      toDoChild.closest('.to-do-item').classList.toggle('hidden');
+    }
   }
 
   removeForm() {
-    this.toDo.removeChild(this.toDo.lastElementChild);
+    const toDoChild = this.todo.children[0].children[0];
+    toDoChild.closest('.to-do-item').classList.toggle('hidden');
+  }
+
+  _insertHTML(location, position, markup) {
+    location.insertAdjacentHTML(position, markup);
   }
 }
 
 const toDoList = new ToDoList();
 
-// OPEN FORM
-const btnAdd = document.querySelector('.button-add');
-
+// ADD FORM
 document.addEventListener('click', e => {
   if (e.target.id === 'add') {
-    toDoList.insertForm();
+    toDoList.renderForm();
   }
 });
-
-// FOR PREVENTING MULTIPLE FORMS TO OPEN
-
-// SAVE FORM
-const btnSave = document.querySelector('.button-save');
-const title = document.querySelector('.title');
-const description = document.querySelector('.description');
-const dateTime = document.querySelector('.date-time');
 
 document.addEventListener('click', e => {
   if (e.target.id === 'save') {
-    toDoList.createToDo(title, description, dateTime);
+    const parentEl = e.target.closest('.to-do-item');
+    const title = parentEl.querySelector('.title').value;
+    const description = parentEl.querySelector('.description').value;
+    const date = parentEl.querySelector('.date-time').value;
+    if (title) {
+      toDoList.addToState(title, description, date);
+      toDoList.renderState();
+      toDoList.removeForm();
+    } else alert('No Title');
   }
 });
 
-// COMPLETED TO DO
-
 document.addEventListener('click', e => {
-  if (e.target.id === 'complete') toDoList.completeToDo(e);
+  if (e.target.id === 'complete') {
+    const item = e.target.closest('.to-do-item');
+    toDoList.completeToDo(item);
+  }
 });
+
+// btnComplete(){
+//   toDoList.completeToDo()
+//   toDoList.renderState()
+// }
+
+// btnRemove(){
+//   toDoList.removeFromState()
+//   toDoList.renderState()
+// }
