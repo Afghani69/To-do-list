@@ -9,10 +9,12 @@ class ToDoList {
   };
 
   addToState(title, description = 'n/a', date = 'n/a') {
+    const [dated, time] = date.split('T');
     const data = {
       title,
       description,
-      date,
+      dated,
+      time,
       id: this.state.toDo.length + this.state.complete.length + 1,
     };
     this.state.toDo.push(data);
@@ -40,13 +42,13 @@ class ToDoList {
         <ul class="item-list">
         <li>${obj.title}</li>
         <li>${obj.description}</li>
-        <li>${obj.date}</li>
+        <li>${obj.dated ? obj.dated : ''} ${obj.time ? obj.time : ''}</li>
         <li>
         <input
         type="button"
         id="complete"
         class="item-button"
-        value="complete"
+        value="Complete"
         />
         </li>
         </ul>
@@ -65,13 +67,13 @@ class ToDoList {
             <ul class="item-list">
               <li>${obj.title}</li>
               <li>${obj.description}</li>
-              <li>${obj.date}</li>
+              <li>${obj.dated} ${obj.time}</li>
               <li>
                 <input
                   type="button"
                   id="remove"
                   class="item-button"
-                  value="remove"
+                  value="Remove"
                 />
               </li>
             </ul>

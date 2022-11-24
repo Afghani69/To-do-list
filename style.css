@@ -1,3 +1,13 @@
+/* color palette:
+#CCD5AE
+#E9EDC9
+#FEFAE0
+#FAEDCD
+#D4A373
+font:
+#000815
+ */
+
 * {
   margin: 0;
   padding: 0;
@@ -6,11 +16,17 @@
 
 html {
   font-size: 62.5%;
+  font-family: 'Patrick Hand', sans-serif;
+  color: #333;
 }
 
+body {
+  background-color: #fefae0;
+}
 section {
   padding: 4.8rem 9.6rem;
 }
+
 /* GENERAL */
 .hidden {
   display: none;
@@ -18,13 +34,47 @@ section {
 
 .heading-primary {
   text-align: center;
+  font-size: 6.4rem;
+}
+
+.heading-secondary {
+  font-size: 4.8rem;
+  margin-bottom: 6.4rem;
 }
 
 .container {
-  max-width: 120rem;
+  max-width: 140rem;
   margin: 6.4rem auto;
   display: flex;
   flex-direction: column;
+}
+
+.item-button {
+  font-size: 3.2rem;
+  padding: 1.6rem 3.2rem;
+  background-color: #d4a373;
+  border: none;
+  font-family: 'Patrick Hand', sans-serif;
+  color: #333;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.item-button:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 2px 2px rgba(119, 119, 119, 0.336);
+}
+
+.item-button:active {
+  transform: translateY(2px);
+}
+
+.to-do,
+.completed {
+  display: flex;
+  flex-direction: column;
+  gap: 6.4rem;
 }
 /* ITEM */
 .item-list {
@@ -35,17 +85,47 @@ section {
   align-items: center;
 }
 
+.item-list li {
+  justify-self: center;
+}
+
 .to-do-item {
-  padding: 3.2rem 6.4rem;
+  background-color: #d4a373;
+  font-size: 3.2rem;
+  border-radius: 5px;
+  padding: 1.6rem 3.2rem;
+  transition: all 0.3s;
+}
+
+.to-do-item:last-child {
   margin-bottom: 6.4rem;
+}
+
+.to-do-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 2px 2px rgba(119, 119, 119, 0.103);
+}
+
+.to-do-item:hover .item-button {
+  background-color: #faedcd;
 }
 /* TO DO */
 .button-add {
-  padding: 3.2rem 0;
-  background-color: #fff;
+  transition: all 0.3s;
+  background-color: #ccd5ae;
+  font-size: 3.2rem;
+  border-radius: 5px;
+  border: none;
+  padding: 1.6rem 0;
+}
+
+.button-add:hover {
+  cursor: pointer;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 2px 2px rgba(119, 119, 119, 0.103);
+}
+
+.button-add:active {
+  transform: translateY(2px);
 }
 /* COMPLETED */
-
-.completed .to-do-item {
-  margin-bottom: 0;
-}
