@@ -11,3 +11,7 @@ After many silly mistakes and frustrations, I think I finally finished the basic
 Scratch that... after testing the app a bit and noticing quite a few bugs, it was back to the drawing board. I realised my approach was not effective for using a "state" and reading/writing from said state. So after using a different approach, and pretty much replacing all the existing code, the logic should finally be done.
 
 I completed some of the styling. Didn't want to spend too much time on it though. Went with neutral colors and a semi-playful font. All that is left is to implement the remove button and local storage.
+
+Finished getting and setting local storage. Also implemented the remove button logic.
+
+Think the list is finally done!

@@ -8,6 +8,10 @@ class ToDoList {
     complete: [],
   };
 
+  constructor() {
+    this._getLocalStorage();
+  }
+
   addToState(title, description = 'n/a', date = 'n/a') {
     const [dated, time] = date.split('T');
     const data = {
@@ -18,9 +22,17 @@ class ToDoList {
       id: this.state.toDo.length + this.state.complete.length + 1,
     };
     this.state.toDo.push(data);
+    this._setLocalStorage();
   }
 
-  removeFromState() {}
+  removeFromState(item) {
+    const removeItem = this.state.complete.find(
+      el => el.id === Number(item.id)
+    );
+    this.state.complete.splice(this.state.toDo.indexOf(removeItem), 1);
+    this.renderState();
+    this._setLocalStorage();
+  }
 
   renderState() {
     // clear render TODO
@@ -87,6 +99,7 @@ class ToDoList {
     const completedItem = this.state.toDo.find(el => el.id === Number(item.id));
     this.state.toDo.splice(this.state.toDo.indexOf(completedItem), 1);
     this.state.complete.push(completedItem);
+    this._setLocalStorage();
     this.renderState();
   }
 
@@ -111,6 +124,15 @@ class ToDoList {
 
   _insertHTML(location, position, markup) {
     location.insertAdjacentHTML(position, markup);
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('state', JSON.stringify(this.state));
+  }
+  _getLocalStorage() {
+    const savedFiles = JSON.parse(localStorage.getItem('state'));
+    this.state = savedFiles;
+    this.renderState();
   }
 }
 
@@ -144,12 +166,9 @@ document.addEventListener('click', e => {
   }
 });
 
-// btnComplete(){
-//   toDoList.completeToDo()
-//   toDoList.renderState()
-// }
-
-// btnRemove(){
-//   toDoList.removeFromState()
-//   toDoList.renderState()
-// }
+document.addEventListener('click', e => {
+  if (e.target.id === 'remove') {
+    const item = e.target.closest('.to-do-item');
+    toDoList.removeFromState(item);
+  }
+});
