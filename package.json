@@ -1,0 +1,19 @@
+{
+  "name": "to-do-list",
+  "version": "1.0.0",
+  "description": "My very own to do list.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Afghani69/To-do-list.git"
+  },
+  "author": "Eben Breytenbach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Afghani69/To-do-list/issues"
+  },
+  "homepage": "https://github.com/Afghani69/To-do-list#readme"
+}
