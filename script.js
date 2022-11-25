@@ -131,8 +131,10 @@ class ToDoList {
   }
   _getLocalStorage() {
     const savedFiles = JSON.parse(localStorage.getItem('state'));
-    this.state = savedFiles;
-    this.renderState();
+    if (savedFiles) {
+      this.state = savedFiles;
+      this.renderState();
+    }
   }
 }
 
